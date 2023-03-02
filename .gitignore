@@ -28,6 +28,7 @@ share/python-wheels/
 MANIFEST
 config/jq.py
 .idea/
+directoryList.md
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

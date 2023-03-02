@@ -1,10 +1,37 @@
-# AntQuantify
-
 # 蚂蚁量化
 
 > 专注于股票、可转债、ETF量化研究
 
 # 目录结构
+```markdown
+|-- AntQuantify
+    |-- .gitignore
+    |-- README.md
+    |-- stock.py
+    |-- .idea
+    |   |-- .gitignore
+    |   |-- AntQuantify.iml
+    |   |-- misc.xml
+    |   |-- modules.xml
+    |   |-- vcs.xml
+    |   |-- workspace.xml
+    |   |-- inspectionProfiles
+    |       |-- profiles_settings.xml
+    |       |-- Project_Default.xml
+    |-- config
+    |   |-- config.py
+    |   |-- jq.py
+    |   |-- __init__.py
+    |   |-- __pycache__
+    |       |-- config.cpython-311.pyc
+    |       |-- jq.cpython-311.pyc
+    |       |-- __init__.cpython-311.pyc
+    |-- data
+    |   |-- stock.py  - 股票相关操作
+    |-- example
+    |-- strategy
+    |-- trader
+```
 
 
 # 使用
@@ -18,3 +45,5 @@ def jq_account():
     """
     return '账号', '密码'
 ```
+
+# 第三方工具
