@@ -20,7 +20,7 @@ def init_db():
     初始化本地数据库
     :return:
     """
-    stocks = get_stock_list()
+    stocks = get_stock_codes()
     for code in stocks:
         df = get_single_price(code, 'daily')
         export_date(df)
@@ -54,10 +54,10 @@ def get_single_price(code, time_freq, start_date=None, end_date=None):
     return df
 
 
-def get_stock_list():
+def get_stock_codes():
     """
-    获取所有A股的行情数据
-    :return: stock_list
+    获取所有A股的股票代码
+    :return: stock_list 所有股票代码
     """
     stocks = list(get_all_securities(['stock']).index)
     return stocks
@@ -65,10 +65,10 @@ def get_stock_list():
 
 def export_date(data, filename, type, mode=None):
     """
-    导出股票数据
+    导出股票数据, 以csv格式存储
     :param data: 导出的数据
     :param filename: 文件名
-    :param type: 数据类型
+    :param type: 数据类型 [stock：股票  etf：etf  convertible_bond: 可转债]
     :param mode: 导出方式： a表示追加 None表示默认写入
     :return:
     """
@@ -87,6 +87,42 @@ def export_date(data, filename, type, mode=None):
     print('股票{}已成功存储至{}'.format(filename, file_root))
 
 
+def filter_kcb_stock(stock_list):
+    """
+    过滤科创北交股票
+    :param stock_list: 要过滤的股票列表
+    :return: 过滤后的股票列表
+    """
+    for stock in stock_list[:]:
+        if stock[0] == '4' or stock[0] == '8' or stock[:2] == '68':
+            stock_list.remove(stock)
+    return stock_list
+
+
+def calculate_change_pct(data):
+    """
+    获取当前涨跌幅
+    涨跌幅计算公式：(当天收盘价 - 前期收盘价) / 前期收盘价
+    :param data: dataframe, 带有收盘价
+    :return: dataframe, 带有涨跌幅
+    """
+    data['close_pct'] = (data['close'] - data['close'].shift(1)) / data['close'].shift(1)
+    return data
+
+
+# 获取单个股票财务指标
+def get_single_valuation(code, date, statDate):
+    """
+    获取单个股票估值指标
+    :param code:
+    :param date:
+    :param statDate:
+    :return:
+    """
+    data = get_fundamentals(query(valuation).filter(valuation.code == code), date=date, statDate=statDate)
+    return data
+
+
 if __name__ == '__main__':
-    df = get_stock_list()
-    print(df)
+    test_df = get_stock_codes()
+    print(test_df)

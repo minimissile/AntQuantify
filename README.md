@@ -6,8 +6,8 @@
 ```markdown
 |-- AntQuantify
     |-- .gitignore
+    |-- directoryList.md
     |-- README.md
-    |-- stock.py
     |-- .idea
     |   |-- .gitignore
     |   |-- AntQuantify.iml
@@ -19,7 +19,6 @@
     |       |-- profiles_settings.xml
     |       |-- Project_Default.xml
     |-- config
-    |   |-- config.py
     |   |-- jq.py
     |   |-- __init__.py
     |   |-- __pycache__
@@ -27,10 +26,15 @@
     |       |-- jq.cpython-311.pyc
     |       |-- __init__.cpython-311.pyc
     |-- data
-    |   |-- stock.py  - 股票相关操作
+    |   |-- convertible_bond - 可转债数据
+    |   |-- etf - etf数据
+    |   |-- stock - 股票数据
     |-- example
     |-- strategy
     |-- trader
+    |-- utils
+        |-- stock.py
+
 ```
 
 
