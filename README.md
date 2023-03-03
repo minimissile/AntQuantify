@@ -32,7 +32,7 @@
     |-- example
     |-- strategy
     |-- trader
-    |-- utils
+    |-- [helpers](helpers)
         |-- stock.py
 
 ```
