@@ -1,3 +1,5 @@
+![py37][py37] ![version][version]
+
 # 蚂蚁量化
 
 > 专注于股票、可转债、ETF量化研究
@@ -51,7 +53,11 @@ def jq_account():
 ```
 
 ## 数据本地化
-聚宽每日api数据请求数有显示，需要多天才能全部将数据存储至本地
 > 运行 helpers/init_db.py
+> 
+聚宽每日api数据请求数有显示，需要多天才能全部将数据存储至本地
+
+如果本地化时提示文件路径相关错误，请手动新建 data/convertible_bond, data/etf, data/stock 等文件夹
+
 
 # 第三方工具
