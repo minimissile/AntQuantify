@@ -30,6 +30,11 @@ config/jq.py
 .idea/
 directoryList.md
 
+# 过滤本地存储的股票数据
+data/convertible_bond/
+data/etf/
+data/stock/
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.

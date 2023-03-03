@@ -32,7 +32,7 @@
     |-- example
     |-- strategy
     |-- trader
-    |-- [helpers](helpers)
+    |-- helpers 
         |-- stock.py
 
 ```
@@ -49,5 +49,8 @@ def jq_account():
     """
     return '账号', '密码'
 ```
+
+## 数据本地化
+> 运行 helpers/init_db.py
 
 # 第三方工具
