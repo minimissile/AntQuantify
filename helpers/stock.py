@@ -4,7 +4,6 @@ import datetime
 import config.jq as jq
 import os
 
-
 # 打印信息时不省略打印信息
 pd.set_option('display.max_rows', 1000)
 pd.set_option('display.max_columns', 1000)
@@ -185,10 +184,69 @@ def update_daily_price(stock_code, type='stock'):
         print('新增股票 {} 的数据'.format(stock_code))
 
 
+def get_csv_data(code, type='stock'):
+    """
+    返回存储在本地的csv文件
+    :param code: 股票代码
+    :param type: 文件类型, 默认为股票
+    :return:
+    """
+    file_root = root + type + '/' + code + '.csv'
+    return pd.read_csv(file_root)
+
+
+def get_csv_price(code, start_date, end_date, type='price', columns=None):
+    """
+    获取本地的股票价格
+    :param start_date: 开始时间
+    :param end_date: 结束时间
+    :param code: 股票代码
+    :param type: 文件类型
+    :param columns: 提取的列，默认提取全部列
+    :return:
+    """
+    update_daily_price(code, type)
+    file_root = root + type + '/' + code + '.csv'
+
+    if columns is None:
+        data = pd.read_csv(file_root, index_col="date")
+    else:
+        data = pd.read_csv(file_root, columns=columns, index_col="date")
+
+    return data[(data.index >= start_date) & (data.index <= end_date)]
+
+
+def transfer_price_freq(data, time_freq):
+    """
+    将收据转换为指定周期：
+    开盘价-周期第一天，收盘价-周期最后一天，最高价-周期内最高价，最低价-周期内最低价
+    :param data: 源数据
+    :param time_freq: 要转换的时间周期
+    :return: 转换时间范围后的数据
+    """
+    df = pd.DataFrame()
+    df['open'] = data['open'].resample(time_freq).first()
+    df['close'] = data['close'].resample(time_freq).last()
+    df['high'] = data['high'].resample(time_freq).max()
+    df['low'] = data['low'].resample(time_freq).min()
+    return df
+
+
+def get_single_finance(code, date, statDate):
+    """
+    获取单个股票估值指标
+    :param code: 股票代码
+    :param date:
+    :param statDate:
+    :return:
+    """
+    data = get_fundamentals(query(indicator).filter(indicator.code == code), date=date, statDate=statDate)
+    return data
+
+
 if __name__ == '__main__':
     test_code = '689009.XSHG'
-
-    test_time = '2023-02-20'
+    test_start_time = '2023-02-20'
     # print(datetime(test_time))
     # print(datedays.datedays(test_time).gettomorrow())
     # datedays(test_time)

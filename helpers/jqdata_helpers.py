@@ -9,3 +9,7 @@ auth(account, password)
 def get_jq_query_count():
     query_count = get_query_count()
     print('查询当日剩余可调用数据条数: {}'.format(query_count))
+
+
+if __name__ == '__main__':
+    get_jq_query_count()
