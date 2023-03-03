@@ -104,11 +104,41 @@ def calculate_prof_pct2(data):
     return data
 
 
+def calculate_max_drawdown(data, window=252):
+    """
+    计算最大回撤比
+    :param data:
+    :param window: int, 时间窗口设置，默认为252（日k）
+    :return:
+    """
+    # 模拟持仓金额：投入的总金额 *（1+收益率）
+    data['close'] = 10000 * (1 + data['cum_profit'])
+    # 选取时间周期中的最大净值
+    data['roll_max'] = data['close'].rolling(window=window, min_periods=1).max()
+    # 计算当天的回撤比 = (谷值 — 峰值)/峰值 = 谷值/峰值 - 1
+    data['daily_dd'] = data['close'] / data['roll_max'] - 1
+    # 选取时间周期内最大的回撤比，即最大回撤
+    data['max_dd'] = data['daily_dd'].rolling(window, min_periods=1).min()
+
+    return data
+
+
 def calculate_cum_pct(data):
     """
     计算累计收益率
     :param data:
     :return:
     """
+    data['cum_profit'] = pd.DataFrame(1 + data['profit_pct']).cumprod() - 1
+    return data
+
+
+def calculate_cum_prof(data):
+    """
+    计算累计收益率（个股收益率）
+    :param data: dataframe
+    :return:
+    """
+    # 累计收益
     data['cum_profit'] = pd.DataFrame(1 + data['profit_pct']).cumprod() - 1
     return data

@@ -195,7 +195,7 @@ def get_csv_data(code, type='stock'):
     return pd.read_csv(file_root)
 
 
-def get_csv_price(code, start_date, end_date, type='price', columns=None):
+def get_csv_price(code, start_date, end_date, type='stock', columns=None):
     """
     获取本地的股票价格
     :param start_date: 开始时间
@@ -205,7 +205,7 @@ def get_csv_price(code, start_date, end_date, type='price', columns=None):
     :param columns: 提取的列，默认提取全部列
     :return:
     """
-    update_daily_price(code, type)
+    # update_daily_price(code, type)
     file_root = root + type + '/' + code + '.csv'
 
     if columns is None:
