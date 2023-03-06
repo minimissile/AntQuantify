@@ -63,3 +63,10 @@ def jq_account():
 # 第三方工具
 
 # 更新计划
+
+# 相关文档
+[聚宽在线量化 api文档](https://www.joinquant.com/help/api/help#api:API%E6%96%87%E6%A1%A3)
+
+[JQData-本地量化数据说明书](https://www.joinquant.com/help/api/help#JQData:JQData)
+
+[tushare](https://tushare.pro/)

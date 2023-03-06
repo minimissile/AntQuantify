@@ -240,13 +240,39 @@ def get_single_finance(code, date, statDate):
     :param statDate:
     :return:
     """
+
     data = get_fundamentals(query(indicator).filter(indicator.code == code), date=date, statDate=statDate)
     return data
 
 
+def get_stock_code(stock_name):
+    """
+    根据股票名，获取股票 code
+    :param stock_name:
+    :return:
+    """
+
+    file_root = root + 'stock/all_stocks.csv'
+    # 先从本地获取股票基本数据
+    if os.path.exists(file_root):
+        securities = pd.read_csv(file_root)
+    else:
+        # 从线上获取数据并保存
+        securities = jq.get_all_securities()
+        get_all_stocks()
+
+    stock_code = securities[securities['display_name'] == stock_name].iloc[0].at['code']
+    return stock_code
+
+
 if __name__ == '__main__':
-    test_code = '689009.XSHG'
+    test_code = '689010.XSHG'
     test_start_time = '2023-02-20'
+    test_display_name = '好想你'
+
+    r_code = get_stock_code(test_display_name)
+    print(r_code)
+
     # print(datetime(test_time))
     # print(datedays.datedays(test_time).gettomorrow())
     # datedays(test_time)
@@ -259,7 +285,7 @@ if __name__ == '__main__':
 
     # test_df = get_all_stocks()
     # print(test_df)
-    update_daily_price(test_code)
+    # update_daily_price(test_code)
 
     # 查询当日剩余可调用数据条数   2857902405
     # query_count = get_query_count()
