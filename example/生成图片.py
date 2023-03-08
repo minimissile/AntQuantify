@@ -1,23 +1,29 @@
+"""
+测试图片生成
+"""
+
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 import random
 
-# create empty image
+# 定义图片宽高
 width, height = 500, 500
 image = Image.new("RGB", (width, height))
 
-# draw a filled rectangle on the image
+# 在图像上绘制一个填充的矩形
 draw = ImageDraw.Draw(image)
 draw.rectangle([(0, 0), (width, height)], fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
 
-# add text to image
-text = "Python正改变世界"
+# 添加图片到文字上
+text = "ai改变世界"
 font = ImageFont.truetype("arial.ttf", 30)  # font style and size
-textwidth, textheight = draw.textsize(text, font)
-x = (width - textwidth) // 2
-y = (height - textheight) // 2
+
+text_width, text_height = draw.textsize(text, font)
+x = (width - text_width) // 2
+y = (height - text_height) // 2
+
 draw.text((x, y), text, font=font, fill=(255, 255, 255))
 
 # save the completed image
-image.save('poster.png')
+image.save('./poster.png')
