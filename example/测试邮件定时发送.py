@@ -29,6 +29,6 @@ if __name__ == "__main__":
     test_message = """\
     Subject: Hi there!
 
-    {}""".format('你好')
+    {}""".format('你好!')
     send_email(test_receiver_email, test_message)
     print(email.sender_email)
